@@ -25,7 +25,7 @@ The goal is simple: survive as long as you can without turning your car into a m
 
 ## Developer Info
 
-This masterpiece was brought to you by three developers who specialize in turning caffeine into code. We're not saying we're the best, but we're pretty sure this is how award-winning games get started.
+This masterpiece was brought to you by four developers who specialize in turning caffeine into code. We're not saying we're the best, but we're pretty sure this is how award-winning games get started.
 
 ---
 
