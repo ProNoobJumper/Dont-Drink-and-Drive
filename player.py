@@ -12,10 +12,10 @@ class PlayerCar(VehicleMovement):
         self.current_speed = 0.0
 
     def accelerate(self):
-        self.current_speed = min(self.current_speed + self.acceleration, self.max_speed)
+        self.move(0, -self.speed)
 
     def decelerate(self):
-        self.current_speed = max(self.current_speed - self.acceleration, -self.max_speed / 2)
+        self.move(0, self.speed)
 
     def move_left(self):
         self.move(-self.speed, 0)
@@ -34,16 +34,13 @@ class PlayerCar(VehicleMovement):
             self.rect.bottom = config.SCREEN_HEIGHT
 
     def check_collision(self, obstacle_group):
-        # Use a reduced hitbox for the player for more forgiving collisions
         ratio = max(0.0, min(1.0, config.HITBOX_RATIO))
         reduced_w = int(self.rect.width * ratio)
         reduced_h = int(self.rect.height * ratio)
         reduced_rect = pygame.Rect(0, 0, reduced_w, reduced_h)
-        # Center the reduced rect on the player's rect
         reduced_rect.center = self.rect.center
 
         for obstacle in obstacle_group:
-            # Optionally reduce obstacle hitbox as well if desired
             obs_w = int(obstacle.rect.width * ratio)
             obs_h = int(obstacle.rect.height * ratio)
             obs_rect = pygame.Rect(0, 0, obs_w, obs_h)
@@ -53,6 +50,5 @@ class PlayerCar(VehicleMovement):
                 return
 
     def update(self):
-        vertical_dy = -int(self.current_speed)
-        self.move(0, vertical_dy)
+        pass
         self.is_within_bounds()

@@ -14,7 +14,6 @@ class Obstacle(pygame.sprite.Sprite):
         self.rect.topleft = (x, y)
 
     def update(self):
-        # Use the current obstacle speed (may be updated for difficulty)
         self.rect.y += config.CURRENT_OBSTACLE_SPEED
         if self.is_off_screen():
             self.kill()

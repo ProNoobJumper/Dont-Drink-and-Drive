@@ -63,12 +63,6 @@ class GameManager:
         pygame.display.flip()
 
     def spawn_obstacles(self, count):
-        """Spawn up to `count` obstacles inside the safe center region without overlap.
-
-        This function avoids the leftmost and rightmost SPAWN_SAFE_PERCENT of the
-        screen and attempts multiple placements per obstacle to avoid overlap with
-        existing on-screen obstacles and with other obstacles spawned in this call.
-        """
         placed_rects = [obs.rect.copy() for obs in self.obstacles]
 
         safe_px = int(config.SPAWN_SAFE_PERCENT * config.SCREEN_WIDTH)
@@ -120,14 +114,12 @@ class GameManager:
                     self.is_running = False
 
                 if event.type == obstacle_timer and not self.game_over:
-                    # Spawn multiple obstacles per tick depending on current_spawn_count
                     self.spawn_obstacles(self.current_spawn_count)
 
                 if event.type == score_timer and not self.game_over:
                     self.player.score += self.current_score_per_tick
 
                 if event.type == difficulty_timer and not self.game_over:
-                    # Increase difficulty
                     self.current_obstacle_speed += config.SPEED_INCREMENT
                     config.CURRENT_OBSTACLE_SPEED = self.current_obstacle_speed
                     self.current_spawn_count = min(self.current_spawn_count + config.SPAWN_COUNT_INCREMENT, config.SCREEN_WIDTH)
