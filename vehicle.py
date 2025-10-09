@@ -2,12 +2,17 @@ import pygame
 
 class VehicleMovement(pygame.sprite.Sprite):
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     """
     A base class for movable vehicle objects.
     Inherits from pygame.sprite.Sprite for built-in game functionalities.
     """
     def __init__(self, x, y, width, height, speed, color=WHITE):
         super().__init__()
+=======
+    def __init__(self, x, y, width, height, speed, color=config.WHITE, image_path=None, *groups):
+        super().__init__(*groups)
+>>>>>>> Stashed changes
 =======
     def __init__(self, x, y, width, height, speed, color=config.WHITE, image_path=None, *groups):
         super().__init__(*groups)
