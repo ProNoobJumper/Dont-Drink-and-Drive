@@ -1,13 +1,8 @@
-# obstacles.py
-"""
-Defines the Obstacle base class and its various child classes.
-"""
 import pygame
 import random
 import config
 
 class Obstacle(pygame.sprite.Sprite):
-    """Base class for all obstacles."""
     def __init__(self, x, y, width, height, color, obstacle_type="obstacle"):
         super().__init__()
         self.obstacle_type = obstacle_type
@@ -18,33 +13,50 @@ class Obstacle(pygame.sprite.Sprite):
         self.rect.topleft = (x, y)
 
     def update(self):
-        """Move the obstacle down the screen."""
-        self.rect.y += config.OBSTACLE_SPEED
+        # Use the current obstacle speed (may be updated for difficulty)
+        self.rect.y += config.CURRENT_OBSTACLE_SPEED
         if self.is_off_screen():
-            self.kill() # Remove the sprite if it's off-screen
+            self.kill()
 
     def get_score_impact(self):
-        """Returns the score impact of this obstacle (e.g., -10 for collision)."""
         return -10
 
     def is_off_screen(self):
-        """Checks if the obstacle is below the screen."""
         return self.rect.top > config.SCREEN_HEIGHT
 
     def get_bounds(self):
-        """Returns the rectangle defining the obstacle's bounds."""
         return self.rect
 
-# --- Specific Obstacle Types ---
 
 class Car(Obstacle):
     def __init__(self, x, y):
-        super().__init__(x, y, 50, 80, config.YELLOW, "Car")
+        super().__init__(x, y, config.CAR_WIDTH, config.CAR_HEIGHT, config.YELLOW, "Car")
+        if config.CAR_IMAGE:
+            try:
+                img = pygame.image.load(config.CAR_IMAGE).convert_alpha()
+                self.image = pygame.transform.scale(img, (config.CAR_WIDTH, config.CAR_HEIGHT))
+                self.rect = self.image.get_rect(topleft=(x, y))
+            except Exception:
+                pass
 
 class Truck(Obstacle):
     def __init__(self, x, y):
-        super().__init__(x, y, 60, 120, config.GREEN, "Truck")
+        super().__init__(x, y, config.TRUCK_WIDTH, config.TRUCK_HEIGHT, config.GREEN, "Truck")
+        if config.TRUCK_IMAGE:
+            try:
+                img = pygame.image.load(config.TRUCK_IMAGE).convert_alpha()
+                self.image = pygame.transform.scale(img, (config.TRUCK_WIDTH, config.TRUCK_HEIGHT))
+                self.rect = self.image.get_rect(topleft=(x, y))
+            except Exception:
+                pass
 
 class Bus(Obstacle):
     def __init__(self, x, y):
-        super().__init__(x, y, 70, 150, config.CYAN, "Bus")
+        super().__init__(x, y, config.BUS_WIDTH, config.BUS_HEIGHT, config.CYAN, "Bus")
+        if config.BUS_IMAGE:
+            try:
+                img = pygame.image.load(config.BUS_IMAGE).convert_alpha()
+                self.image = pygame.transform.scale(img, (config.BUS_WIDTH, config.BUS_HEIGHT))
+                self.rect = self.image.get_rect(topleft=(x, y))
+            except Exception:
+                pass

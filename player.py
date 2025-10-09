@@ -1,44 +1,63 @@
-# player.py
-"""
-Defines the PlayerCar class, controlled by the user.
-"""
 import pygame
 from vehicle import VehicleMovement
 import config
 
 class PlayerCar(VehicleMovement):
-    """
-    Represents the player's car. Inherits from VehicleMovement.
-    """
-    def __init__(self, x, y):
-        super().__init__(x, y, config.PLAYER_WIDTH, config.PLAYER_HEIGHT, config.PLAYER_MAX_SPEED, config.BLUE)
+    def __init__(self, x, y, *groups):
+        super().__init__(x, y, config.PLAYER_WIDTH, config.PLAYER_HEIGHT, config.PLAYER_MAX_SPEED, config.BLUE, config.PLAYER_IMAGE, *groups)
         self.score = 0
         self.max_speed = config.PLAYER_MAX_SPEED
         self.is_alive = True
+<<<<<<< Updated upstream
 
     def accelerate(self):
         # Placeholder for acceleration logic
         print("Accelerating...")
+=======
+        self.acceleration = 0.5
+        self.current_speed = 0.0
+
+    def accelerate(self):
+        self.current_speed = min(self.current_speed + self.acceleration, self.max_speed)
+
+    def decelerate(self):
+        self.current_speed = max(self.current_speed - self.acceleration, -self.max_speed / 2)
+>>>>>>> Stashed changes
 
     def move_left(self):
-        """Moves the car to the left."""
         self.move(-self.speed, 0)
 
     def move_right(self):
-        """Moves the car to the right."""
         self.move(self.speed, 0)
         
     def is_within_bounds(self):
-        """Keeps the player within the screen bounds."""
         if self.rect.left < 0:
             self.rect.left = 0
         if self.rect.right > config.SCREEN_WIDTH:
             self.rect.right = config.SCREEN_WIDTH
+        if self.rect.top < 0:
+            self.rect.top = 0
+        if self.rect.bottom > config.SCREEN_HEIGHT:
+            self.rect.bottom = config.SCREEN_HEIGHT
 
     def check_collision(self, obstacle_group):
-        """Checks for collision with any obstacle in the given group."""
-        if pygame.sprite.spritecollide(self, obstacle_group, False):
-            self.is_alive = False
+        # Use a reduced hitbox for the player for more forgiving collisions
+        ratio = max(0.0, min(1.0, config.HITBOX_RATIO))
+        reduced_w = int(self.rect.width * ratio)
+        reduced_h = int(self.rect.height * ratio)
+        reduced_rect = pygame.Rect(0, 0, reduced_w, reduced_h)
+        # Center the reduced rect on the player's rect
+        reduced_rect.center = self.rect.center
+
+        for obstacle in obstacle_group:
+            # Optionally reduce obstacle hitbox as well if desired
+            obs_w = int(obstacle.rect.width * ratio)
+            obs_h = int(obstacle.rect.height * ratio)
+            obs_rect = pygame.Rect(0, 0, obs_w, obs_h)
+            obs_rect.center = obstacle.rect.center
+            if reduced_rect.colliderect(obs_rect):
+                self.is_alive = False
+                return
 
     def get_score(self):
         return self.score
@@ -50,5 +69,10 @@ class PlayerCar(VehicleMovement):
         self.is_alive = status
 
     def update(self):
+<<<<<<< Updated upstream
         """Update method called every frame."""
+=======
+        vertical_dy = -int(self.current_speed)
+        self.move(0, vertical_dy)
+>>>>>>> Stashed changes
         self.is_within_bounds()
