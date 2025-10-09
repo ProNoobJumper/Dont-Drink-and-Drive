@@ -6,6 +6,7 @@ class Obstacle(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height, color, obstacle_type="obstacle"):
         super().__init__()
         self.obstacle_type = obstacle_type
+        self.passed = False
         
         self.image = pygame.Surface([width, height])
         self.image.fill(color)

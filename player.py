@@ -8,15 +8,6 @@ class PlayerCar(VehicleMovement):
         self.score = 0
         self.max_speed = config.PLAYER_MAX_SPEED
         self.is_alive = True
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-
-    def accelerate(self):
-        # Placeholder for acceleration logic
-        print("Accelerating...")
-=======
-=======
->>>>>>> Stashed changes
         self.acceleration = 0.5
         self.current_speed = 0.0
 
@@ -25,10 +16,6 @@ class PlayerCar(VehicleMovement):
 
     def decelerate(self):
         self.current_speed = max(self.current_speed - self.acceleration, -self.max_speed / 2)
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
     def move_left(self):
         self.move(-self.speed, 0)
@@ -64,28 +51,8 @@ class PlayerCar(VehicleMovement):
             if reduced_rect.colliderect(obs_rect):
                 self.is_alive = False
                 return
-<<<<<<< Updated upstream
-
-    def get_score(self):
-        return self.score
-
-    def set_score(self, score):
-        self.score = score
-
-    def set_alive(self, status):
-        self.is_alive = status
-
-    def update(self):
-<<<<<<< Updated upstream
-        """Update method called every frame."""
-=======
-        vertical_dy = -int(self.current_speed)
-        self.move(0, vertical_dy)
->>>>>>> Stashed changes
-=======
 
     def update(self):
         vertical_dy = -int(self.current_speed)
         self.move(0, vertical_dy)
->>>>>>> Stashed changes
         self.is_within_bounds()

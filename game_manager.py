@@ -1,8 +1,3 @@
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
 import pygame
 import random
 import sys
@@ -197,4 +192,3 @@ class GameManager:
 
         pygame.quit()
         sys.exit()
->>>>>>> Stashed changes

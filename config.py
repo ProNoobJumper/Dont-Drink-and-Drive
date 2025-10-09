@@ -13,8 +13,8 @@ YELLOW = (255, 255, 0)
 CYAN = (0, 255, 255)
 
 # Player car settings
-PLAYER_WIDTH = 50
-PLAYER_HEIGHT = 80
+PLAYER_WIDTH = 100
+PLAYER_HEIGHT = 160
 PLAYER_MAX_SPEED = 10
 
 # Obstacle settings
@@ -72,11 +72,8 @@ INITIAL_SPAWN_COUNT = 1
 SPAWN_COUNT_INCREMENT = 1
 
 # Configurable sprite sizes (except road which is scaled to screen)
-# Player size (can be tuned)
-PLAYER_WIDTH = 100
-PLAYER_HEIGHT = 160
-
-# Obstacle sizes (defaults similar to previous values but configurable)
+PLAYER_WIDTH = PLAYER_WIDTH
+PLAYER_HEIGHT = PLAYER_HEIGHT
 CAR_WIDTH = 100
 CAR_HEIGHT = 160
 TRUCK_WIDTH = 120
