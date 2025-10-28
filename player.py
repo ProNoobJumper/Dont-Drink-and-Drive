@@ -10,6 +10,10 @@ class PlayerCar(VehicleMovement):
         self.is_alive = True
         self.acceleration = 0.5
         self.current_speed = 0.0
+        
+        # Create a separate hitbox rectangle
+        self.hitbox = pygame.Rect(0, 0, config.PLAYER_HITBOX_WIDTH, config.PLAYER_HITBOX_HEIGHT)
+        self.hitbox.center = self.rect.center
 
     def accelerate(self):
         self.move(0, -self.speed)
@@ -23,6 +27,11 @@ class PlayerCar(VehicleMovement):
     def move_right(self):
         self.move(self.speed, 0)
         
+    def move(self, dx, dy):
+        # Override the parent's move method to update the hitbox
+        super().move(dx, dy)  # This moves self.rect
+        self.hitbox.center = self.rect.center # Re-center the hitbox
+
     def is_within_bounds(self):
         if self.rect.left < 0:
             self.rect.left = 0
@@ -32,20 +41,16 @@ class PlayerCar(VehicleMovement):
             self.rect.top = 0
         if self.rect.bottom > config.SCREEN_HEIGHT:
             self.rect.bottom = config.SCREEN_HEIGHT
+        
+        # Update hitbox position after clamping rect
+        self.hitbox.center = self.rect.center
 
     def check_collision(self, obstacle_group):
-        ratio = max(0.0, min(1.0, config.HITBOX_RATIO))
-        reduced_w = int(self.rect.width * ratio)
-        reduced_h = int(self.rect.height * ratio)
-        reduced_rect = pygame.Rect(0, 0, reduced_w, reduced_h)
-        reduced_rect.center = self.rect.center
-
+        # New simplified collision logic
+        # It checks for collision between the player's hitbox
+        # and each obstacle's hitbox.
         for obstacle in obstacle_group:
-            obs_w = int(obstacle.rect.width * ratio)
-            obs_h = int(obstacle.rect.height * ratio)
-            obs_rect = pygame.Rect(0, 0, obs_w, obs_h)
-            obs_rect.center = obstacle.rect.center
-            if reduced_rect.colliderect(obs_rect):
+            if self.hitbox.colliderect(obstacle.hitbox):
                 self.is_alive = False
                 return
 

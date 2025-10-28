@@ -30,9 +30,20 @@ TRUCK_IMAGE = r"assets\truck_sprite.png"
 BUS_IMAGE = r"assets\school_bus sprite.png"
 ROAD_IMAGE = r"assets\road sprite.png"
 
-# Ratio used to shrink collision rectangles for more forgiving hitboxes.
-# 1.0 = full image rect, <1.0 = smaller hitbox. Adjust to taste.
-HITBOX_RATIO = 0.65
+
+# Set the width and height for each object's hitbox
+
+PLAYER_HITBOX_WIDTH = 50
+PLAYER_HITBOX_HEIGHT = 110
+
+CAR_HITBOX_WIDTH = 50
+CAR_HITBOX_HEIGHT = 110
+
+TRUCK_HITBOX_WIDTH = 50
+TRUCK_HITBOX_HEIGHT = 200
+
+BUS_HITBOX_WIDTH = 50
+BUS_HITBOX_HEIGHT = 200
 
 # Road / lane configuration
 # Number of lanes drawn on the road image (use an integer >= 1)
